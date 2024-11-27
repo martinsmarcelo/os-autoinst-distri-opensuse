@@ -588,13 +588,13 @@ sub config_host_shared_storage {
             systemctl('status nfs-server.service');
             assert_script_run("rm -f -r $args{exppath}/nfsok; touch $args{exppath}/nfsok");
             script_run("umount $args{mntpath} || umount -f -l $args{mntpath}");
-            assert_script_run("mount -t nfs localhost:$args{exppath} $args{mntpath}");
+            assert_script_run("mount -t nfs -o vers=3 localhost:$args{exppath} $args{mntpath}");
             save_screenshot;
         }
         elsif ($args{role} eq 'client') {
             my $_nfsserver = get_var('PEER_IPADDR');
             script_run("umount $args{mntpath} || umount -f -l $args{mntpath}");
-            assert_script_run("mount -t nfs $_nfsserver:$args{exppath} $args{mntpath}");
+            assert_script_run("mount -t nfs -o vers=3 $_nfsserver:$args{exppath} $args{mntpath}");
             assert_script_run("cd ~ && ls -lah $args{mntpath}/nfsok");
             save_screenshot;
         }
