@@ -39,7 +39,7 @@ sub run {
     import_guest $_, 'virt-install' foreach (values %virt_autotest::common::imports);
 
     # Wait for Windows boot, get IP via nmap, and add to hosts
-    sleep 60;
+    sleep 120;
 
     my $scan_subnet = '192.168.122.0/24';
 
